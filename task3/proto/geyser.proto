@@ -1,0 +1,120 @@
+syntax = "proto3";
+
+package geyser;
+
+service Geyser {
+  rpc Subscribe(SubscribeRequest) returns (stream SubscribeUpdate);
+}
+
+message SubscribeRequest {
+  repeated Filter filters = 1;
+}
+
+message Filter {
+  oneof filter {
+    AccountsFilter accounts = 1;
+    SlotsFilter slots = 2;
+    TransactionsFilter transactions = 3;
+    BlocksFilter blocks = 4;
+    BlocksMetaFilter blocks_meta = 5;
+    EntryFilter entry = 6;
+  }
+}
+
+message AccountsFilter {
+  repeated string account = 1;
+  string owner = 2;
+  repeated string filters = 3;
+}
+
+message SlotsFilter {
+  bool filter_by_commitment = 1;
+}
+
+message TransactionsFilter {
+  bool vote = 1;
+  bool failed = 2;
+  string signature = 3;
+  repeated string account_include = 4;
+  repeated string account_exclude = 5;
+}
+
+message BlocksFilter {
+  bool account_include = 1;
+}
+
+message BlocksMetaFilter {}
+
+message EntryFilter {}
+
+message SubscribeUpdate {
+  oneof update {
+    Account account = 1;
+    Slot slot = 2;
+    Transaction transaction = 3;
+    Block block = 4;
+    BlockMeta block_meta = 5;
+    Entry entry = 6;
+    Ping ping = 7;
+  }
+}
+
+message Account {
+  string pubkey = 1;
+  string owner = 2;
+  uint64 lamports = 3;
+  bytes data = 4;
+  bool executable = 5;
+  uint64 rent_epoch = 6;
+  uint64 slot = 7;
+  bool is_startup = 8;
+}
+
+message Slot {
+  uint64 slot = 1;
+  uint64 parent = 2;
+  uint64 status = 3;
+}
+
+message Transaction {
+  string signature = 1;
+  bool is_vote = 2;
+  uint64 slot = 3;
+  uint64 block_time = 4;
+  uint64 index = 5;
+  bytes transaction = 6;
+  bytes meta = 7;
+}
+
+message Block {
+  uint64 slot = 1;
+  uint64 parent_slot = 2;
+  uint64 block_time = 3;
+  string blockhash = 4;
+  string previous_blockhash = 5;
+  repeated Transaction transactions = 6;
+  uint64 rewards_len = 7;
+}
+
+message BlockMeta {
+  uint64 slot = 1;
+  uint64 parent_slot = 2;
+  uint64 block_time = 3;
+  string blockhash = 4;
+  string previous_blockhash = 5;
+  uint64 transactions_len = 6;
+  uint64 rewards_len = 7;
+}
+
+message Entry {
+  uint64 slot = 1;
+  uint64 index = 2;
+  uint64 num_hashes = 3;
+  string hash = 4;
+  string previous_hash = 5;
+  repeated bytes transactions = 6;
+}
+
+message Ping {
+  uint64 seq = 1;
+}

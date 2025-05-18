@@ -1,0 +1,11 @@
+source_wallets:
+  - address: "9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin"
+    secret_key: "4NMwxzmYbBq8e11Cq6NTWUe5qqVA5VkS5fU8NeQWXCCQM6xeJ7SGvppuieKrxAckeb95xSfnWr9QxFNfz8MjNzYL"
+  - address: "6dDF9KGHPDaQ3rngQQXGVVCGZCKRCEqf3qVEJT2qFDzL"
+    secret_key: "4NMwxzmYbBq8e11Cq6NTWUe5qqVA5VkS5fU8NeQWXCCQM6xeJ7SGvppuieKrxAckeb95xSfnWr9QxFNfz8MjNzYL"
+
+destination_wallets:
+  - "3Gdu3Uf97jw4Kuz1TRR5UbhzxpjKLDMR81qj9WGAd3v7"
+  - "7nYHgLXqesQZVQmPfYsP9VFgTZKk3GVUL1kg9PJbZ7X6"
+
+amount_lamports: 1000
